@@ -1,0 +1,73 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>To-Do List</title>
+</head>
+<body>
+    
+    <div class="container p-5">
+        <button><a href="{% url 'new' %}">Add New</a></button>
+    </div>
+
+    {% if item_list %}
+    <ul class="list-group">
+        <li>
+            <div class="container">
+                <div class="row">
+                    <div class="col-1">
+                        <p><strong>ID</strong></p>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Title</strong></p>
+                    </div>
+                    <div class="col-3">
+                        <p><strong>Description</strong></p>
+                    </div>
+                    <div class="col-3">
+                        <p><strong>Due Date</strong></p>
+                    </div>
+                    <div class="col-3">
+                        <p><strong>Created Date</strong></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {% for item in item_list|dictsort:"id" %}
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-1">
+                        <p><a href="{% url 'edit' id=item.id %}">{{ item.id }}</a></p>
+                    </div>
+                    <div class="col-2">
+                        <p>{{ item.title }}</p>
+                    </div>
+                    <div class="col-3">
+                        <p>{{ item.description }}</p>
+                    </div>
+                    <div class="col-3">
+                        <p>{{ item.due_date }}</p>
+                    </div>
+                    <div class="col-2">
+                        <p>{{ item.created_date }}</p>
+                    </div>
+                    <div class="col-1">
+                        <a href="{% url 'delete' id=item.id %}">delete</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
